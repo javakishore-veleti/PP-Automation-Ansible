@@ -20,6 +20,15 @@ cd ${PP_APP_ANSIBLE_PLAYBOOKS_CODE_PATH}
 
 # Kafka Cluster Management
 
+## Update your laptop /etc/hosts
+
+Adde following 3 lines in your laptop or computer /etc/hosts 
+
+127.0.0.1       pp-server-kafka-local-1
+127.0.0.1       pp-server-kafka-local-2
+127.0.0.1       pp-server-kafka-local-3
+127.0.0.1       pp-server-kafka-local-zookeeper
+
 ## Start Kafka Cluster
 
 ```sh

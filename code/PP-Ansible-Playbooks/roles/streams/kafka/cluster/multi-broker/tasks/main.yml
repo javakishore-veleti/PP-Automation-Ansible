@@ -15,12 +15,17 @@
 
 - name: Kafka Cluster 3 Nodes Docker Compose approach Delete
   tags: kafka_multi_cluser_delete
-  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml rm -v -f --stop "
+  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml down -v -f --stop  "
+  when: "kafka_multi_cluser_delete == true"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Delete with docker-compose rm
+  tags: kafka_multi_cluser_delete
+  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml rm -v -f --stop  "
   when: "kafka_multi_cluser_delete == true"
 
 - name: Kafka Cluster 3 Nodes Docker Compose approach Delete Volumes
   tags: kafka_multi_cluser_delete
-  command: "docker volume rm platform_db_kafka_cluster_volume_01_kafka1 platform_db_kafka_cluster_volume_01_kafka2 platform_db_kafka_cluster_volume_01_kafka3 platform_db_kafka_cluster_volume_01_zk platform_db_kafka_cluster_volume_01_zk_log"
+  command: "docker volume rm pp_server_kafka_cluster_volume_01_kafka1 pp_server_kafka_cluster_volume_01_kafka2 pp_server_kafka_cluster_volume_01_kafka3 pp_server_kafka_cluster_volume_01_zk pp_server_kafka_cluster_volume_01_zk_log "
   ignore_errors: True
   when: "kafka_multi_cluser_delete == true"
 
