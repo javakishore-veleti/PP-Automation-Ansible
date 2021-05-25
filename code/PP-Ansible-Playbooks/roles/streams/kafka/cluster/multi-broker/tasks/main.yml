@@ -1,0 +1,44 @@
+- name: Kafka Cluster 3 Nodes Docker Compose approach Create
+  tags: kafka_multi_cluser_start
+  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml up -d "
+  when: "kafka_multi_cluser_start == true"
+  register: docker_compose_output
+
+- debug:
+    msg: "docker_compose_output -> {{docker_compose_output}}"
+  when: "kafka_multi_cluser_start == true"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Stop
+  tags: kafka_multi_cluser_stop
+  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml stop "
+  when: "kafka_multi_cluser_stop == true"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Delete
+  tags: kafka_multi_cluser_delete
+  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml rm -v -f --stop "
+  when: "kafka_multi_cluser_delete == true"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Delete Volumes
+  tags: kafka_multi_cluser_delete
+  command: "docker volume rm platform_db_kafka_cluster_volume_01_kafka1 platform_db_kafka_cluster_volume_01_kafka2 platform_db_kafka_cluster_volume_01_kafka3 platform_db_kafka_cluster_volume_01_zk platform_db_kafka_cluster_volume_01_zk_log"
+  ignore_errors: True
+  when: "kafka_multi_cluser_delete == true"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Restart
+  tags: kafka_multi_cluser_restart
+  command: "docker-compose -f {{kafka_multi_broker_project_path}}/docker-compose.yml restart "
+  when: "kafka_multi_cluser_restart == true"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Chceck Docker Processes
+  command: "docker ps"
+  register: docker_ps_output
+
+- debug:
+    msg: "{{docker_ps_output.stdout}}"
+
+- name: Kafka Cluster 3 Nodes Docker Compose approach Chceck Docker Volumes
+  command: "docker volume ls"
+  register: docker_volume_output
+
+- debug:
+    msg: "{{docker_volume_output.stdout}}"

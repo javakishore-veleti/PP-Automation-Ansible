@@ -1,0 +1,7 @@
+kafka_multi_cluser_start: false
+kafka_multi_cluser_stop: false
+kafka_multi_cluser_delete: false
+kafka_multi_cluser_restart: false
+
+roles_path_kafka_multi_broker: "{{this_project_ansible_roles_path}}/streams/kafka/cluster/multi-broker"
+kafka_multi_broker_project_path: "{{roles_path_kafka_multi_broker}}/templates/kafka-multi-broker"

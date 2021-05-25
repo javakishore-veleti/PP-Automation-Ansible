@@ -1,0 +1,8 @@
+- name: Kafka Multi Broker Docker Compose Create Playbook
+  hosts: bastion_host_kafka
+  tasks:
+    - name: Create Kafka Multi Broker Cluster through Docker Compose
+      vars:
+        kafka_multi_cluser_start: true
+      import_role:
+        name: "roles/streams/kafka/cluster/multi-broker"

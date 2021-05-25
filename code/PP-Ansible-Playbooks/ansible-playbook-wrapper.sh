@@ -19,7 +19,7 @@ echo ""
 # I have set this on my laptop
 # export PP_APP_ANSIBLE_PLAYBOOKS_CODE_PATH=~/provider-portal/PP-Automation-Ansible/code/PP-Ansible-Playbooks
 
-ANSIBLE_CONFIG="${ANSIBLE_CONFIG_FILE}" ansible-playbook -i "${INVENTORY_FILE}" --extra-vars "${EXTRA_ARGS}" --extra-vars "techsummit_ansible_code_path=${PP_APP_ANSIBLE_PLAYBOOKS_CODE_PATH}" --extra-vars "@$ANSIBLE_EXTRA_ARGS_JSON_FILE" $*
+ANSIBLE_CONFIG="${ANSIBLE_CONFIG_FILE}" ansible-playbook -i "${INVENTORY_FILE}" --extra-vars "${EXTRA_ARGS}" --extra-vars "pp_ansible_code_path=${PP_APP_ANSIBLE_PLAYBOOKS_CODE_PATH}" --extra-vars "@$ANSIBLE_EXTRA_ARGS_JSON_FILE" $*
 
 echo ""
 echo ""

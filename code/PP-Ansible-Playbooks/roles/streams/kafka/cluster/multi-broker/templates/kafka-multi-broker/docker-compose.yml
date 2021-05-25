@@ -1,0 +1,83 @@
+version: '3.7'
+
+volumes:
+  kafka_cluster_vol_zk:
+    name: pp_server_kafka_cluster_volume_01_zk
+  kafka_cluster_vol_zk_log:
+    name: pp_server_kafka_cluster_volume_01_zk_log
+  kafka_cluster_vol_kafka_1:
+    name: pp_server_kafka_cluster_volume_01_kafka1
+  kafka_cluster_vol_kafka_2:
+    name: pp_server_kafka_cluster_volume_01_kafka2
+  kafka_cluster_vol_kafka_3:
+    name: pp_server_kafka_cluster_volume_01_kafka3
+
+services:
+  pp-server-kafka-local-zookeeper:
+    image: confluentinc/cp-zookeeper:5.2.1
+    # hostname: "pp-server-kafka-local-zookeeper"
+    container_name: "pp-server-kafka-local-zookeeper"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SYNC_LIMIT: 2
+    ports:
+      - 2181:2181
+    volumes:
+      - kafka_cluster_vol_zk:/data
+      - kafka_cluster_vol_zk_log:/datalog
+  
+  pp-server-kafka-local-1:
+    image: confluentinc/cp-kafka:latest
+    # hostname: pp-server-kafka-local-1
+    container_name: "pp-server-kafka-local-1"
+    ports:
+      - "9092:9092"
+    depends_on:
+      - pp-server-kafka-local-zookeeper
+    volumes:
+      - kafka_cluster_vol_kafka_1:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: pp-server-kafka-local-zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://pp-server-kafka-local-1:9092
+    links:
+    -  pp-server-kafka-local-zookeeper
+    -  pp-server-kafka-local-2
+    -  pp-server-kafka-local-3
+
+  pp-server-kafka-local-2:
+    image: confluentinc/cp-kafka:latest
+    #  hostname: pp-server-kafka-local-2
+    container_name: "pp-server-kafka-local-2"
+    ports:
+      - "29092:29092"
+    depends_on:
+       - pp-server-kafka-local-zookeeper
+    volumes:
+      - kafka_cluster_vol_kafka_2:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: pp-server-kafka-local-zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://pp-server-kafka-local-2:29092
+    links:
+    -  pp-server-kafka-local-zookeeper
+    -  pp-server-kafka-local-3
+
+  pp-server-kafka-local-3:
+    image: confluentinc/cp-kafka:latest
+    # hostname: pp-server-kafka-local-3
+    container_name: "pp-server-kafka-local-3"
+    ports:
+      - "39092:39092"
+    depends_on:
+       - pp-server-kafka-local-zookeeper
+    volumes:
+      - kafka_cluster_vol_kafka_3:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: pp-server-kafka-local-zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://pp-server-kafka-local-3:39092
+    links:
+      -  pp-server-kafka-local-zookeeper
+

@@ -1,0 +1,8 @@
+- name: Kafka Multi Broker Docker Compose Stop Playbook
+  hosts: bastion_host_kafka
+  tasks:
+    - name: Stop Kafka Multi Broker Cluster through Docker Compose
+      vars:
+        kafka_multi_cluser_restart: true
+      import_role:
+        name: "roles/streams/kafka/cluster/multi-broker"
