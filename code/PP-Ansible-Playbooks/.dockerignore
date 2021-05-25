@@ -1,0 +1,16 @@
+PP-Ansible-Playbooks-venv
+PP-Ansible-Playbooks-venv/
+files
+inventories
+roles
+group_vars
+files/
+inventories/
+roles/
+Dockerfile
+docker-build.sh
+docker-run.sh
+docker-stop.sh
+docker-clean-volume.sh
+docker-remove.sh
+.m2
